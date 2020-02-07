@@ -1,6 +1,21 @@
 <template>
-  <div class="octothorpe">
-  </div>
+  <table class="octothorpe">
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </table>
 </template>
 
 <script>
