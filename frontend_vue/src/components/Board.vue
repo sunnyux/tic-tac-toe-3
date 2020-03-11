@@ -1,6 +1,6 @@
 <template>
   <div id="board">
-    <Octothorpe :state="state" @test="doSomething" />
+    <Octothorpe />
   </div>
 </template>
 
@@ -9,10 +9,6 @@ import Octothorpe from "./Octothorpe.vue";
 
 export default {
   name: "Board",
-
-  props: {
-    state: Array
-  },
 
   components: {
     Octothorpe
