@@ -20,10 +20,6 @@ yarn-error.log*
 *.sln
 *.sw?
 
-# Things to ignore everywhere
-**/package-lock.json
-**/package.json
-
 # Things to ignore in sub-folders
 */node_modules
 */babel.config.js
