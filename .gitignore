@@ -20,10 +20,6 @@ yarn-error.log*
 *.sln
 *.sw?
 
-# Things to ignore in sub-folders
-*/node_modules
-*/babel.config.js
-*/.pnp
-*/.pnp.js
-*/coverage
-*/build
+# Things to ignore everywhere
+**/node_modules/
+**/build/
