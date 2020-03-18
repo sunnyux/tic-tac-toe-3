@@ -21,5 +21,6 @@ yarn-error.log*
 *.sw?
 
 # Things to ignore everywhere
-**/node_modules/
 **/build/
+**/.linaria_cache/
+**/node_modules/
