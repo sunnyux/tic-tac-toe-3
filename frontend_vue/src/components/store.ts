@@ -2,18 +2,27 @@ import Vue from "vue";
 import Vuex from "vuex";
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
+export const store = new Vuex.Store({
   state: {
-    letter: "X"
+    player: "X",
+    boardPlaying: 0,
+    winner: ""
   },
   mutations: {
-    ye(state) {
-      state.letter = "y";
+    changeTurn(state) {
+      if (state.player === "X") {
+        state.player = "O";
+      } else {
+        state.player = "X"
+      }
+    },
+    changeBoard(state, board) {
+      state.boardPlaying = board;
     }
   },
   getters: {
-    getBoard(state) {
-      return state.letter;
+    getMark(state) {
+      return state.player;
     }
   }
 });
