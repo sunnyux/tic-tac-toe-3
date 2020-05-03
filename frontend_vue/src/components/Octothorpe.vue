@@ -1,29 +1,78 @@
 <template>
-    <!--    <div>-->
-    <!--        <table class="oct-container">-->
-    <!--            <tr>-->
-    <!--                <td class="grid-cell top bottom left right">-->
-    <!--                    <slot>Oct</slot>-->
-    <!--                </td>-->
-    <!--            </tr>-->
-    <!--        </table>-->
-    <!--    </div>-->
-    <div>
-        <slot>
-            <table class="oct-container">
-                <tr v-for="row in 3" :key="row">
-                    <td v-for="column in 3" :key="row-column">
-                        <div v-if="octDepth>0">
-                            <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-                        </div>
-                        <div v-else>
-                            <Cell class="grid-cell top bottom left right"></Cell>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </slot>
-    </div>
+    <!--    <table class="oct-container">-->
+    <!--        <tr v-for="row in 3" :key="row">-->
+    <!--            <td v-for="column in 3" :key="row-column">-->
+    <!--                <div v-if="octDepth>0">-->
+    <!--                    <Octothorpe :octDepth="octDepth-1"></Octothorpe>-->
+    <!--                </div>-->
+    <!--                <div v-else>-->
+    <!--                    <Cell class="grid-cell top bottom left right"></Cell>-->
+    <!--                </div>-->
+    <!--            </td>-->
+    <!--        </tr>-->
+    <!--    </table>-->
+    <table class="oct-container">
+        <tr>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+        </tr>
+        <tr>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+        </tr>
+        <tr>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+            <td v-if="octDepth>0">
+                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+            </td>
+            <td v-else>
+                <Cell class="grid-cell top bottom left right"></Cell>
+            </td>
+        </tr>
+    </table>
 </template>
 
 <script>

@@ -1,35 +1,11 @@
 <template>
     <div class="board" id="board">
-        <Octothorpe v-if="depth>0" :octDepth="depth - 1">
-            <Octothorpe>
-                <Octothorpe></Octothorpe>
-            </Octothorpe>
-        </Octothorpe>
-<!--        <table class="oct-container">-->
-<!--            <tr>-->
-<!--                <td> <Octothorpe name="1" class="grid-cell bottom right"> <Cell /> </Octothorpe> </td>-->
-<!--                <td> <Octothorpe name="2"> <Cell /> </Octothorpe>  </td>-->
-<!--                <td> <Octothorpe name="3"> <Cell /> </Octothorpe> </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td> <Octothorpe name="4"> <Cell /> </Octothorpe> </td>-->
-<!--                <td> <Octothorpe name="5" > <Cell /> </Octothorpe> </td>-->
-<!--                <td> <Octothorpe name="6"> <Cell /> </Octothorpe>  </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td> <Octothorpe name="7" > <Cell /> </Octothorpe>  </td>-->
-<!--                <td> <Octothorpe name="8" > <Cell /> </Octothorpe>  </td>-->
-<!--                <td> <Octothorpe name="9" > <Cell /> </Octothorpe>  </td>-->
-<!--            </tr>-->
-<!--        </table>-->
+        <Octothorpe :oct-depth="octDepth"></Octothorpe>
     </div>
 </template>
 
 <script>
 import Octothorpe from "./Octothorpe.vue";
-// import Cell from "./Cell.vue";
-
-// const depth = 3
 
 export default {
     name: "Board",
