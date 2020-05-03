@@ -33,13 +33,18 @@ import Octothorpe from "./Octothorpe.vue";
 
 export default {
     name: "Board",
-
-    data() {
-        // boardPlaying: this.$store.boardPlaying;
-        return {
-            depth: 2
-        };
+    props: {
+        octDepth: {
+            type: Number,
+            required: true,
+        }
     },
+    // data() {
+    //     // boardPlaying: this.$store.boardPlaying;
+    //     return {
+    //         depth: 2
+    //     };
+    // },
 
     components: {
         Octothorpe,

@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <Board />
+    <Octothorpe :oct-depth="depth"></Octothorpe>
   </div>
 </template>
 
 <script>
-import Board from "./components/Board.vue";
-
+// import Board from "./components/Board.vue";
+import Octothorpe from "./components/Octothorpe";
 export default {
   name: "app",
   components: {
-    Board
+    Octothorpe,
+  },
+  data() {
+    return {
+      depth: 0,
+    }
   }
 };
 </script>

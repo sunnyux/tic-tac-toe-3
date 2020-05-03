@@ -17,7 +17,7 @@
                             <Octothorpe :octDepth="octDepth-1"></Octothorpe>
                         </div>
                         <div v-else>
-                            <Cell class="grid-cell" :class="log"></Cell>
+                            <Cell class="grid-cell top bottom left right"></Cell>
                         </div>
                     </td>
                 </tr>
@@ -31,21 +31,22 @@
 
     export default {
         name: "Octothorpe",
-        // props: {
-        //     octDepth: {
-        //         type: Number,
-        //         required: true
-        //     },
-        // },
-        data() {
-            return {
-                octDepth: 0,
-                isTop: 'top',
-                isBottom: 'bottom',
-                isLeft: 'left',
-                isRight: 'right',
-            }
+        props: {
+            octDepth: {
+                type: Number,
+                required: true
+            },
         },
+        // },
+        // data() {
+        //     return {
+        //         octDepth: 0,
+        //         isTop: 'top',
+        //         isBottom: 'bottom',
+        //         isLeft: 'left',
+        //         isRight: 'right',
+        //     }
+        // },
         components: {
             Cell,
         },
