@@ -1,5 +1,5 @@
 <template>
-	<td class="cell">
+	<td>
 		<div class="content" @click="changeState">
 			{{mark}}
 		</div>
@@ -16,7 +16,7 @@ export default {
 
 	data: function () {
 		return {
-			mark: "X"
+			mark: "O"
 		}
 	},
 
@@ -55,9 +55,16 @@ export default {
 	padding-bottom: 100%;
 }
 
+/*.content {*/
+/*	position: absolute;*/
+/*	width: 100%;*/
+/*	height: 100%;*/
+/*}*/
+
 .content {
-	position: absolute;
-	width: 100%;
-	height: 100%;
+	position:absolute;
+	height:80%; /* = 100% - 2*10% padding */
+	width:90%; /* = 100% - 2*5% padding */
+	padding: 10% 5%;
 }
 </style>

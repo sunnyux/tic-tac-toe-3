@@ -1,78 +1,16 @@
 <template>
-    <!--    <table class="oct-container">-->
-    <!--        <tr v-for="row in 3" :key="row">-->
-    <!--            <td v-for="column in 3" :key="row-column">-->
-    <!--                <div v-if="octDepth>0">-->
-    <!--                    <Octothorpe :octDepth="octDepth-1"></Octothorpe>-->
-    <!--                </div>-->
-    <!--                <div v-else>-->
-    <!--                    <Cell class="grid-cell top bottom left right"></Cell>-->
-    <!--                </div>-->
-    <!--            </td>-->
-    <!--        </tr>-->
-    <!--    </table>-->
-    <table class="oct-container">
-        <tr>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-        </tr>
-        <tr>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-        </tr>
-        <tr>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-            <td v-if="octDepth>0">
-                <Octothorpe :octDepth="octDepth-1"></Octothorpe>
-            </td>
-            <td v-else>
-                <Cell class="grid-cell top bottom left right"></Cell>
-            </td>
-        </tr>
-    </table>
+        <table class="square">
+            <tr v-for="row in 3" :key="row">
+                <td v-for="column in 3" :key="row-column">
+                    <div v-if="octDepth>0">
+                        <Octothorpe :octDepth="octDepth-1"></Octothorpe>
+                    </div>
+                    <div v-else>
+                        <Cell></Cell>
+                    </div>
+                </td>
+            </tr>
+        </table>
 </template>
 
 <script>
@@ -128,25 +66,25 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .oct-container {
-        margin: 3vw;
-        border-collapse: collapse;
-    }
+    /*.oct-container {*/
+    /*    margin: 3vw;*/
+    /*    border-collapse: collapse;*/
+    /*}*/
 
     .top {
-        border-top: solid black 5px;
+        border-top: solid black 1px;
     }
 
     .bottom {
-        border-bottom: solid black 5px;
+        border-bottom: solid black 1px;
     }
 
     .left {
-        border-left: solid black 5px;
+        border-left: solid black 1px;
     }
 
     .right {
-        border-right: solid black 5px;
+        border-right: solid black 1px;
     }
 
     .grid-cell {
@@ -156,9 +94,39 @@
         height: 10vw
     }
 
+    table {
+        border: 1px solid black;
+        width: 10vw;
+        height: 30%;
+        border-collapse: collapse;
+    }
+
+
     /*.grid-cell:after {*/
     /*    content: "";*/
     /*    display: block;*/
     /*    padding-bottom: 100%;*/
     /*}*/
+
+    div {
+        width: 30%;
+        padding-bottom: 30%; /* = width for a square aspect ratio */
+    }
+
+    .square {
+        float:left;
+        position: relative;
+        width: 30%;
+        padding-bottom: 30%; /* = width for a 1:1 aspect ratio */
+        margin:1.66%;
+        overflow:hidden;
+    }
+
+    .content {
+        position:absolute;
+        height:80%; /* = 100% - 2*10% padding */
+        width:90%; /* = 100% - 2*5% padding */
+        padding: 10% 5%;
+    }
+
 </style>

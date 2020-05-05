@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <Board :oct-depth="depth"></Board>
+    <Octothorpe :oct-depth="depth"></Octothorpe>
   </div>
 </template>
 
 <script>
-import Board from "./components/Board.vue";
-// import Octothorpe from "./components/Octothorpe";
+// import Board from "./components/Board.vue";
+import Octothorpe from "./components/Octothorpe";
 export default {
   name: "app",
   components: {
-    // Octothorpe,
-    Board,
+    Octothorpe,
+    // Board,
   },
   data() {
     return {
-      depth: 1,
+      depth: 2,
     }
   }
 };
@@ -25,11 +25,20 @@ html {
   background-color: white;
 }
 
+/*#app {*/
+/*  font-family: "Avenir", Helvetica, Arial, sans-serif;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*  text-align: center;*/
+/*  color: black;*/
+/*}*/
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: black;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
