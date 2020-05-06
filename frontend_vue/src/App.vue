@@ -24,21 +24,29 @@ export default {
 html {
   background-color: white;
 }
-
-/*#app {*/
-/*  font-family: "Avenir", Helvetica, Arial, sans-serif;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*  text-align: center;*/
-/*  color: black;*/
-/*}*/
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
 }
+table {
+  margin: auto;
+  width: 95%;
+  padding: 3% 0.1%;
+  border-color: black;
+  border-collapse: separate;
+}
+
+/*td .content {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
+/*  right: 0;*/
+/*  background: gold;*/
+/*}*/
 </style>
+
