@@ -29,7 +29,7 @@ export default {
 
     methods: {
         doSomething() {
-            alert("yes");      
+            alert("yes");
         }
     }
 };

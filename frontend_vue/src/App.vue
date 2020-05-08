@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Octothorpe :oct-depth="depth"></Octothorpe>
+    <Octothorpe :block-i-d="initialID" :oct-depth="depth"></Octothorpe>
   </div>
 </template>
 
@@ -17,6 +17,11 @@ export default {
     return {
       depth: 2,
     }
+  },
+  computed: {
+    initialID() {
+      return {prevID: "d" + this.depth}
+    }
   }
 };
 </script>
@@ -31,12 +36,16 @@ html {
   text-align: center;
   color: #2c3e50;
   margin-top: 30px;
+  font-size: 20px;
 }
+
 table {
   margin: auto;
-  width: 95%;
+  /*width: 8vw;*/
+  table-layout: fixed;
+  min-width: 95%;
   padding: 3% 0.1%;
-  border-color: black;
+  /*border-color: black;*/
   border-collapse: separate;
 }
 

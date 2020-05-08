@@ -12,11 +12,16 @@
 export default {
 	name: "cell",
 
-	props: ["name"],
+	props: {
+		cellID: {
+			type: Object,
+			requied: true
+		}
+	},
 
 	data: function () {
 		return {
-			mark: "O"
+			mark: ""
 		}
 	},
 
@@ -37,14 +42,15 @@ export default {
 .cell {
 	font-size: 100%;
 	position: absolute;
-	/*text-align: center;*/
+	text-align: center;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	/*top: 50%;*/
-	min-width: 20px;
-	min-height:20px;
+	padding: 0 0 0 0;
+	width: 95%;
+	height: 95%;
 	font-family: 'Gochi Hand', sans-serif;
 	box-shadow: none;
 	/*border: 2px solid white;*/
