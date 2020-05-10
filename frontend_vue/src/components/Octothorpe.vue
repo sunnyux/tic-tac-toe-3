@@ -100,7 +100,7 @@
     padding: 0;
     width: 90%;
     height: 90%;
-    background: white;
+    /*background: gold;*/
   }
 
   .lasttable {

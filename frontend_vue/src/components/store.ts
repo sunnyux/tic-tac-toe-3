@@ -6,7 +6,7 @@ export const store = new Vuex.Store({
   state: {
     player: "X",
     depth: 0,
-    boardPlaying: 0,
+    boardPlaying: "init",
     winner: ""
   },
   mutations: {

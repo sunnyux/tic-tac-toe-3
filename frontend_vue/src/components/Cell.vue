@@ -1,5 +1,5 @@
 <template>
-  <button class="cell" :disabled="marked" @click="changeState">
+  <button class="cell" :class="color" :disabled="marked" @click="changeState">
     {{mark}}
   </button>
 </template>
@@ -9,15 +9,13 @@
 
   export default {
     name: "cell",
-
     props: {
       cellID: {
         type: Object,
         required: true
       }
     },
-
-    data: function () {
+    data() {
       return {
         mark: ""
       }
@@ -25,6 +23,16 @@
     computed: {
       marked() {
         return this.mark !== ""
+      },
+      color() {
+        /*eslint-disable no-console*/
+        console.log((this.$store.state.boardPlaying));
+        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X")
+          return 'playerx';
+        else if(this.$store.state.boardPlaying === "O")
+          return 'playero';
+        else
+          return 'unplayable'
       }
     },
 
@@ -32,7 +40,7 @@
       changeState() {
         this.mark = this.$store.getters.getMark;
         this.$store.commit("changeTurn")
-
+        //TODO (rule + display): change board color after play
         /* eslint-disable no-console */
         console.log(this.cellID)
       },
@@ -62,7 +70,18 @@
     box-shadow: none;
     /*border: 2px solid white;*/
     border: none;
-    background: gold;
+  }
+
+  .playerx {
+    background: lightsalmon;
+  }
+
+  .playero {
+    background-color: cornflowerblue;
+  }
+
+  .unplayable {
+    background-color: gold;
   }
 
 </style>
