@@ -5,10 +5,14 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     player: "X",
+    depth: 0,
     boardPlaying: 0,
     winner: ""
   },
   mutations: {
+    storeDepth(state, depth) {
+      state.depth = depth;
+    },
     changeTurn(state) {
       if (state.player === "X") {
         state.player = "O";
