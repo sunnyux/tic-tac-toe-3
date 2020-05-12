@@ -7,6 +7,7 @@ export const store = new Vuex.Store({
     player: "X",
     depth: 0,
     boardPlaying: "init",
+    activeBoard: -1,
     winner: ""
   },
   mutations: {
@@ -22,7 +23,8 @@ export const store = new Vuex.Store({
     },
     changeBoard(state, board) {
       state.boardPlaying = board;
-    }
+    },
+
   },
   getters: {
     getMark(state) {

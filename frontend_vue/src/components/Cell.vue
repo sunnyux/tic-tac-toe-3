@@ -64,8 +64,8 @@
     right: 0;
     /*top: 50%;*/
     padding: 0 0 0 0;
-    width: 95%;
-    height: 95%;
+    width: 100%;
+    height: 100%;
     font-family: 'Gochi Hand', sans-serif;
     box-shadow: none;
     /*border: 2px solid white;*/

@@ -4,10 +4,10 @@
       <td v-for="column in 3" :key="row-column" :class="{borders: !moreNesting}">
         <div v-if="moreNesting" class="content">
           <Octothorpe :block-i-d="{row: row, column: column, prevID: blockID}"
-                      :octDepth="octDepth-1"></Octothorpe>
+                      :octDepth="octDepth-1" />
         </div>
-        <div v-else class="content">
-          <Cell :cell-i-d="{row: row, column: column, prevID: blockID}"></Cell>
+        <div v-else>
+          <Cell :cell-i-d="{row: row, column: column, prevID: blockID}" />
         </div>
       </td>
     </tr>
@@ -45,6 +45,18 @@
       moreNesting() {
         return this.octDepth > 0;
       },
+      color() {
+        /*eslint-disable no-console*/
+        // console.log((this.$store.state.boardPlaying));
+        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X") {
+          console.log("xplaying");
+          return 'xplaying';
+        }
+        else if(this.$store.state.boardPlaying === "O")
+          return 'oplaying';
+        else
+          return 'unplayable'
+      }
     },
     methods: {
       boardToPlay(board) {
@@ -70,7 +82,6 @@
     font-size: 90%;
     /*border-color: white;*/
   }
-
   td {
     width: 33.3333%;
     /*width: 5em;*/
@@ -78,17 +89,15 @@
     padding: 0;
     margin: 0;
   }
-
   td:after {
     content: '';
     display: block;
     margin-top: 100%;
   }
-
   .borders {
     border: 2px solid white;
+    margin: 0 0 0 0;
   }
-
   .last {
     /*border-collapse: collapse;*/
     position: absolute;
@@ -102,7 +111,6 @@
     height: 90%;
     /*background: gold;*/
   }
-
   .lasttable {
     /*margin: 0 0 0 0;*/
     margin: auto;
@@ -117,6 +125,17 @@
     height: 90%;
     border-collapse: collapse;
     border: 0;
+    /*background: none;*/
+    /*background-color: sandybrown;*/
+  }
+  .xplaying {
+    background-color: lightsalmon;
+  }
+  .oplaying {
+    background-color: cornflowerblue;
+  }
+  .unplayable {
+    background-color: gold;
   }
 
 </style>
