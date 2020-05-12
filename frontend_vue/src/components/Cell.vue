@@ -1,5 +1,5 @@
 <template>
-  <button class="cell" :class="color" :disabled="marked" @click="changeState">
+  <button class="cell" :class="color" @click.once="changeState">
     {{mark}}
   </button>
 </template>

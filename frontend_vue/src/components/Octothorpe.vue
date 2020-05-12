@@ -1,5 +1,5 @@
 <template>
-  <table :class="{lasttable: !moreNesting}">
+  <table :class="size">
     <tr v-for="row in 3" :key="row">
       <td v-for="column in 3" :key="row-column" :class="{borders: !moreNesting}">
         <div v-if="moreNesting" class="content">
@@ -44,6 +44,15 @@
     computed: {
       moreNesting() {
         return this.octDepth > 0;
+      },
+      size() {
+        if(!this.moreNesting)
+          if(this.$store.state.originalDepth <= 1)
+           return "size1";
+          else
+            return "size2"
+        else
+          return "size"
       },
       color() {
         /*eslint-disable no-console*/
@@ -98,35 +107,24 @@
     border: 2px solid white;
     margin: 0 0 0 0;
   }
-  .last {
-    /*border-collapse: collapse;*/
-    position: absolute;
-    left: 6%;
-    /*right: 5%;*/
-    top: 6%;
-    /*bottom: 5%;*/
-    margin: 0 0 0 0;
-    padding: 0;
-    width: 90%;
-    height: 90%;
-    /*background: gold;*/
-  }
-  .lasttable {
-    /*margin: 0 0 0 0;*/
-    margin: auto;
-    /*width: 8vw;*/
-    /*padding-top: 3%;*/
-    table-layout: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+  .size1 {
     width: 95%;
-    height: 90%;
+    height: 95%;
+    left: 3%;
+    top: 3%;
+    margin-top: 3%;
+    margin-left: 3%;
+    table-layout: fixed;
     border-collapse: collapse;
-    border: 0;
-    /*background: none;*/
-    /*background-color: sandybrown;*/
+  }
+  .size2 {
+    width: 98%;
+    height: 98%;
+    left: 1%;
+    top: 1%;
+    margin-top: 1%;
+    margin-left: 1%;
+    border-collapse: collapse;
   }
   .xplaying {
     background-color: lightsalmon;
