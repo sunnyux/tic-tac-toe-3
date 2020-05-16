@@ -16,7 +16,7 @@
     },
     data() {
       return {
-        depth: 2,
+        depth:1,
       }
     },
     created() {
