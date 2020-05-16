@@ -3,11 +3,11 @@
     <tr v-for="row in 3" :key="row">
       <td v-for="column in 3" :key="row-column" :class="{borders: !moreNesting}">
         <div v-if="moreNesting" class="content">
-          <Octothorpe :block-i-d="{row: row, column: column, prevID: blockID}"
+          <Octothorpe :block-i-d="[row, column, blockID]"
                       :octDepth="octDepth-1" />
         </div>
         <div v-else>
-          <Cell :cell-i-d="{row: row, column: column, prevID: blockID}" />
+          <Cell :cell-i-d="[row, column, blockID]" />
         </div>
       </td>
     </tr>
@@ -29,7 +29,7 @@
         required: true
       },
       blockID: {
-        type: Object,
+        type: Array,
         required: true
       }
     },
@@ -59,18 +59,18 @@
         else
           return "size"
       },
-      color() {
-        /*eslint-disable no-console*/
-        // console.log((this.$store.state.boardPlaying));
-        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X") {
-          console.log("xplaying");
-          return 'xplaying';
-        }
-        else if(this.$store.state.boardPlaying === "O")
-          return 'oplaying';
-        else
-          return 'unplayable'
-      }
+      // color() {
+      //   /*eslint-disable no-console*/
+      //   // console.log((this.$store.state.boardPlaying));
+      //   if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X") {
+      //     console.log("xplaying");
+      //     return 'xplaying';
+      //   }
+      //   else if(this.$store.state.boardPlaying === "O")
+      //     return 'oplaying';
+      //   else
+      //     return 'unplayable'
+      // }
     },
     methods: {
       boardToPlay(board) {

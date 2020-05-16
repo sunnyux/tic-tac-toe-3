@@ -1,17 +1,19 @@
 <template>
-  <button class="cell" :class="color" @click.once="changeState">
+  <button class="cell" :class="color" @click.once="markPlaced">
     {{mark}}
   </button>
 </template>
 
 <script>
+  //TODO: Disable click effect
   // import store from "./store.ts";
+  /*eslint-disable no-console*/
 
   export default {
     name: "cell",
     props: {
       cellID: {
-        type: Object,
+        type: Array,
         required: true
       }
     },
@@ -24,8 +26,11 @@
       marked() {
         return this.mark !== ""
       },
+      uniqueID(){   // inside to outside
+        // the next board will be defined from outside to inside
+        return "c" + this.cellID.flat(this.$store.state.originalDepth).join("");
+      },
       color() {
-        /*eslint-disable no-console*/
         console.log((this.$store.state.boardPlaying));
         if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X")
           return 'playerx';
@@ -35,14 +40,14 @@
           return 'unplayable'
       }
     },
-
     methods: {
-      changeState() {
+      markPlaced() {
         this.mark = this.$store.getters.getMark;
-        this.$store.commit("changeTurn")
+        this.$store.commit("markPlaced", this.cellID)
+
         //TODO (rule + display): change board color after play
         /* eslint-disable no-console */
-        console.log(this.cellID)
+        // console.log(this.cellID)
       },
       nextBoard() {
         /* eslint-disable no-console */

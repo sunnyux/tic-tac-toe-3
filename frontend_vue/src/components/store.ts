@@ -14,12 +14,15 @@ export const store = new Vuex.Store({
     storeDepth(state, depth) {
       state.originalDepth = depth;
     },
-    changeTurn(state) {
+    markPlaced(state, cellID) {
       if (state.player === "X") {
         state.player = "O";
       } else {
         state.player = "X"
       }
+      /* eslint-disable no-console */
+      console.log(cellID)
+
     },
     changeBoard(state, board) {
       state.boardPlaying = board;
