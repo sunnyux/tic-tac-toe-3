@@ -1,11 +1,11 @@
 <template>
 <!--  <table :class="size" :id="id">-->
   <table :class="size">
-    <tr v-for="row in 3" :key="row">
-      <td v-for="column in 3" :key="row-column" :class="{borders: !moreNesting}">
+    <tr v-for="row in boardSize" :key="row">
+      <td v-for="column in boardSize" :key="row+column" :class="{borders: !moreNesting}">
         <div v-if="moreNesting" class="content">
           <Octothorpe :block-i-d="[row, column, blockID]"
-                      :octDepth="octDepth-1" />
+                      :octDepth="octDepth-1" :board-size="parseInt(boardSize)"/>
         </div>
         <div v-else>
           <Cell :cell-i-d="[row, column, blockID]" />
@@ -26,6 +26,10 @@
     name: "Octothorpe",
     props: {
       octDepth: {
+        type: Number,
+        required: true
+      },
+      boardSize: {
         type: Number,
         required: true
       },
@@ -98,7 +102,7 @@
     /*border-color: white;*/
   }
   td {
-    width: 33.3333%;
+    /*width: 33.3333%;*/
     /*width: 5em;*/
     position: relative;
     padding: 0;

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Octothorpe :block-i-d="initialID" :oct-depth="depth"></Octothorpe>
+    <Octothorpe :block-i-d="initialID" :oct-depth="depth" :board-size="size"></Octothorpe>
   </div>
 </template>
 
@@ -17,6 +17,7 @@
     data() {
       return {
         depth: 1,
+        size: 5, // the number of rows and columns of the board
       }
     },
     created() {
