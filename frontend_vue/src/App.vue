@@ -17,7 +17,7 @@
     data() {
       return {
         depth: 1,
-        size: 5, // the number of rows and columns of the board
+        size: 10, // the number of rows and columns of the board
       }
     },
     created() {

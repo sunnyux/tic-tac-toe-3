@@ -23,21 +23,21 @@
       }
     },
     computed: {
-      coordID(){   // inside to outside
+      coordID(){   // inside to outside, xy-x'y'
         // the next board will be defined from outside to inside
         let id = this.cellID
         let result = ""
         for(let i = this.$store.state.originalDepth + 1; i > 0; i--) {
-          result = (id[0]).toString() + (id[1]).toString() + result
+          result = (id[0]).toString() + (id[1]).toString() + "-" + result
           id = id[2]
         }
         return result
       },
       boardID() {
-        return this.coordID.substring(0, this.coordID.length - 2)
+        return this.idFormatter(this.coordID, true)
       },
       boardState() {
-        console.log((this.$store.state.boardPlaying));
+        // console.log(this.coordID, this.boardID, x);
         if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === this.boardID)
           if(this.$store.state.player === "X")
             return 'playerx';
@@ -50,8 +50,15 @@
     methods: {
       markPlaced() {
         this.mark = this.$store.getters.getMark;
-        this.$store.commit("markPlaced", this.coordID.substring(2))
+        this.$store.commit("markPlaced", this.idFormatter(this.coordID, false))
       },
+      idFormatter(id, forBoard) {
+        // if id is the boardID, then forBoard = true, if it is for boardPlaying then false
+        if(forBoard)
+          return id.split('-').slice(0, this.$store.state.originalDepth).join("")
+        else
+          return id.split('-').slice(1).join("")
+      }
     }
   };
 </script>
