@@ -1,5 +1,5 @@
 <template>
-  <button class="cell" :class="color" @click.once="markPlaced">
+  <button class="cell" :class="boardState" @click.once="markPlaced">
     {{mark}}
   </button>
 </template>
@@ -36,12 +36,13 @@
       boardID() {
         return this.coordID.substring(0, this.coordID.length - 2)
       },
-      color() {
+      boardState() {
         console.log((this.$store.state.boardPlaying));
         if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === this.boardID)
-          return 'playerx';
-        else if(this.$store.state.boardPlaying === this.boardID)
-          return 'playero';
+          if(this.$store.state.player === "X")
+            return 'playerx';
+          else //if(this.$store.state.player === "O")
+            return 'playero';
         else
           return 'unplayable'
       }
@@ -85,6 +86,12 @@
 
   .unplayable {
     background-color: gold;
+    pointer-events: none;
+  }
+
+  .playerx:focus, .playero:focus, .unplayable:focus {
+    outline: 0;
+    box-shadow: none!important;
   }
 
 </style>
