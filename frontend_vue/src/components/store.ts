@@ -3,6 +3,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+  /* eslint-disable no-console */
   state: {
     player: "X",
     originalDepth: 0,
@@ -14,15 +15,14 @@ export const store = new Vuex.Store({
     storeDepth(state, depth) {
       state.originalDepth = depth;
     },
-    markPlaced(state, cellID) {
+    markPlaced(state, id) {
       if (state.player === "X") {
         state.player = "O";
       } else {
         state.player = "X"
       }
-      /* eslint-disable no-console */
-      console.log(cellID)
-
+      // console.log((id));
+      state.boardPlaying = id
     },
     changeBoard(state, board) {
       state.boardPlaying = board;

@@ -16,7 +16,7 @@
     },
     data() {
       return {
-        depth:2,
+        depth: 1,
       }
     },
     created() {
@@ -24,7 +24,7 @@
     },
     computed: {
       initialID() {
-        return "d"  + this.depth
+        return ["d"]
       }
     }
   };

@@ -1,5 +1,6 @@
 <template>
-  <table :class="size" :id="id">
+<!--  <table :class="size" :id="id">-->
+  <table :class="size">
     <tr v-for="row in 3" :key="row">
       <td v-for="column in 3" :key="row-column" :class="{borders: !moreNesting}">
         <div v-if="moreNesting" class="content">

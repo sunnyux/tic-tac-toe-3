@@ -23,18 +23,24 @@
       }
     },
     computed: {
-      marked() {
-        return this.mark !== ""
-      },
-      uniqueID(){   // inside to outside
+      coordID(){   // inside to outside
         // the next board will be defined from outside to inside
-        return "c" + this.cellID.flat(this.$store.state.originalDepth).join("");
+        let id = this.cellID
+        let result = ""
+        for(let i = this.$store.state.originalDepth + 1; i > 0; i--) {
+          result = (id[0]).toString() + (id[1]).toString() + result
+          id = id[2]
+        }
+        return result
+      },
+      boardID() {
+        return this.coordID.substring(0, this.coordID.length - 2)
       },
       color() {
         console.log((this.$store.state.boardPlaying));
-        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X")
+        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === this.boardID)
           return 'playerx';
-        else if(this.$store.state.boardPlaying === "O")
+        else if(this.$store.state.boardPlaying === this.boardID)
           return 'playero';
         else
           return 'unplayable'
@@ -43,16 +49,8 @@
     methods: {
       markPlaced() {
         this.mark = this.$store.getters.getMark;
-        this.$store.commit("markPlaced", this.cellID)
-
-        //TODO (rule + display): change board color after play
-        /* eslint-disable no-console */
-        // console.log(this.cellID)
+        this.$store.commit("markPlaced", this.coordID.substring(2))
       },
-      nextBoard() {
-        /* eslint-disable no-console */
-        console.log(this.cellID)
-      }
     }
   };
 </script>
