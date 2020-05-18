@@ -71,7 +71,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: gold;
+    background: #ffee9c;
     font-size: 90%;
   }
 
@@ -111,18 +111,6 @@
     margin-top: 1%;
     margin-left: 1%;
     border-collapse: collapse;
-  }
-
-  .xplaying {
-    background-color: lightsalmon;
-  }
-
-  .oplaying {
-    background-color: cornflowerblue;
-  }
-
-  .unplayable {
-    background-color: gold;
   }
 
 </style>
