@@ -1,4 +1,5 @@
 <template>
+  <div>
   <table :class="size">
     <tr v-for="row in boardSize" :key="row">
       <td v-for="column in boardSize" :key="row+column" :class="{borders: !moreNesting}">
@@ -12,6 +13,8 @@
       </td>
     </tr>
   </table>
+  <div class="winner">X</div>
+  </div>
 </template>
 
 <script>
@@ -60,6 +63,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .winner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+  }
   table {
     border-style: hidden;
   }
