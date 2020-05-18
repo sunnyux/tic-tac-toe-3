@@ -12,16 +12,16 @@
     name: "app",
     components: {
       Octothorpe,
-      // Board,
     },
     data() {
       return {
         depth: 1,
-        size: 10, // the number of rows and columns of the board
+        size: 4, // the number of rows and columns of the board
       }
     },
     created() {
       this.$store.commit("storeDepth", this.depth)
+      this.$store.commit("storeSize", this.size)
     },
     computed: {
       initialID() {
@@ -54,14 +54,5 @@
     /*border-color: black;*/
     border-collapse: separate;
   }
-
-  /*td .content {*/
-  /*  position: absolute;*/
-  /*  top: 0;*/
-  /*  bottom: 0;*/
-  /*  left: 0;*/
-  /*  right: 0;*/
-  /*  background: gold;*/
-  /*}*/
 </style>
 

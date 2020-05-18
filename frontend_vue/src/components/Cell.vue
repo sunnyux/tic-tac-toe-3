@@ -5,10 +5,7 @@
 </template>
 
 <script>
-  //TODO: Disable click effect
-  // import store from "./store.ts";
   /*eslint-disable no-console*/
-
   export default {
     name: "cell",
     props: {
@@ -19,15 +16,15 @@
     },
     data() {
       return {
-        mark: ""
+        mark: "",
       }
     },
     computed: {
-      coordID(){   // inside to outside, xy-x'y'
+      coordID() {   // inside to outside, xy-x'y'
         // the next board will be defined from outside to inside
         let id = this.cellID
         let result = ""
-        for(let i = this.$store.state.originalDepth + 1; i > 0; i--) {
+        for (let i = this.$store.state.originalDepth + 1; i > 0; i--) {
           result = (id[0]).toString() + (id[1]).toString() + "-" + result
           id = id[2]
         }
@@ -37,9 +34,9 @@
         return this.idFormatter(this.coordID, true)
       },
       boardState() {
-        // console.log(this.coordID, this.boardID, x);
-        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === this.boardID)
-          if(this.$store.state.player === "X")
+        if (this.$store.state.boardPlaying === "init"
+          || this.$store.state.boardPlaying === this.boardID)
+          if (this.$store.state.player === "X")
             return 'playerx';
           else //if(this.$store.state.player === "O")
             return 'playero';
@@ -50,11 +47,12 @@
     methods: {
       markPlaced() {
         this.mark = this.$store.getters.getMark;
-        this.$store.commit("markPlaced", this.idFormatter(this.coordID, false))
+        this.$store.commit("markPlaced",
+          this.idFormatter(this.coordID, false))
       },
       idFormatter(id, forBoard) {
         // if id is the boardID, then forBoard = true, if it is for boardPlaying then false
-        if(forBoard)
+        if (forBoard)
           return id.split('-').slice(0, this.$store.state.originalDepth).join("")
         else
           return id.split('-').slice(1).join("")
@@ -79,7 +77,6 @@
     height: 100%;
     font-family: 'Gochi Hand', sans-serif;
     box-shadow: none;
-    /*border: 2px solid white;*/
     border: none;
   }
 
@@ -98,7 +95,7 @@
 
   .playerx:focus, .playero:focus, .unplayable:focus {
     outline: 0;
-    box-shadow: none!important;
+    box-shadow: none !important;
   }
 
 </style>

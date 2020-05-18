@@ -7,6 +7,7 @@ export const store = new Vuex.Store({
   state: {
     player: "X",
     originalDepth: 0,
+    originalSize: 0,
     boardPlaying: "init",
     activeBoard: -1,
     winner: ""
@@ -14,6 +15,9 @@ export const store = new Vuex.Store({
   mutations: {
     storeDepth(state, depth) {
       state.originalDepth = depth;
+    },
+    storeSize(state, size) {
+      state.originalSize = size;
     },
     markPlaced(state, id) {
       if (state.player === "X") {
