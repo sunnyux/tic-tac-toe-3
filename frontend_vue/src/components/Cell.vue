@@ -46,7 +46,9 @@
     },
     methods: {
       markPlaced() {
-        this.mark = this.$store.getters.getMark;
+        let mark = this.$store.getters.getMark;
+        if(mark === "X") this.mark = "✕"
+        else this.mark = "O"
         this.$store.commit("markPlaced",
           this.idFormatter(this.coordID, false))
       },

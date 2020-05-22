@@ -15,8 +15,8 @@
     },
     data() {
       return {
-        depth: 1,
-        size: 4, // the number of rows and columns of the board
+        depth: 2,
+        size: 3, // the number of rows and columns of the board
       }
     },
     created() {
@@ -42,7 +42,7 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 30px;
-    font-size: 20px;
+    font-size: 2vw;
   }
 
   table {

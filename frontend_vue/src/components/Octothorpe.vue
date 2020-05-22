@@ -13,7 +13,7 @@
       </td>
     </tr>
   </table>
-  <div class="winner">X</div>
+  <div v-if="completed" class="winner">{{winner}}</div>
   </div>
 </template>
 
@@ -39,12 +39,17 @@
     data() {
       return {
         lastTable: "lasttable",
+        winner: "×",
       }
     },
     components: {
       Cell,
     },
     computed: {
+      completed() {
+        return false
+        // return this.octDepth === 1;
+      },
       moreNesting() {
         return this.octDepth > 0;
       },
@@ -67,8 +72,15 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 50px;
-    color: white;
+    font-size: 1666%;
+    color: #eddbbf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #846c00;
+    opacity: 50%;
+    width: 100%;
+    height: 100%;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
   }
