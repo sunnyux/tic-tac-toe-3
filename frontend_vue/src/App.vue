@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  // import Board from "./components/Board.vue";
   import Octothorpe from "./components/Octothorpe";
 
   export default {
@@ -16,7 +15,7 @@
     data() {
       return {
         depth: 2,
-        size: 3, // the number of rows and columns of the board
+        size: 2, // the number of rows and columns of the board
       }
     },
     created() {
@@ -42,16 +41,13 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 30px;
-    font-size: 2vw;
   }
 
   table {
     margin: auto;
-    /*width: 8vw;*/
     table-layout: fixed;
     min-width: 95%;
     padding: 3% 0.1%;
-    /*border-color: black;*/
     border-collapse: separate;
   }
 </style>

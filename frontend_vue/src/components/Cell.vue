@@ -1,5 +1,5 @@
 <template>
-  <button class="cell" :class="boardState" @click.once="markPlaced">
+  <button class="cell" ref="cell" :style="{fontSize}" :class="boardState" @click.once="markPlaced">
     {{mark}}
   </button>
 </template>
@@ -17,6 +17,7 @@
     data() {
       return {
         mark: "",
+        fontSize: 0,
       }
     },
     computed: {
@@ -38,35 +39,39 @@
           || this.$store.state.boardPlaying === this.boardID)
           if (this.$store.state.player === "X")
             return 'playerx';
-          else //if(this.$store.state.player === "O")
+          else
             return 'playero';
         else
           return 'unplayable'
       }
     },
     methods: {
+      getCellWidth() {
+        this.fontSize = this.$refs.cell.clientWidth / 10 + 'vw'
+      },
       markPlaced() {
         let mark = this.$store.getters.getMark;
-        if(mark === "X") this.mark = "✕"
+        if (mark === "X") this.mark = "✕"
         else this.mark = "O"
         this.$store.commit("markPlaced",
-          this.idFormatter(this.coordID, false))
+                           this.idFormatter(this.coordID, false))
       },
-      idFormatter(id, forBoard) {
-        // if id is the boardID, then forBoard = true, if it is for boardPlaying then false
+      idFormatter(id, forBoard) { // if id is for boardID, then forBoard = true,
+                                  // if it is for boardPlaying then false
         if (forBoard)
           return id.split('-').slice(0, this.$store.state.originalDepth).join("")
         else
           return id.split('-').slice(1).join("")
       }
+    },
+    mounted() {
+      this.getCellWidth();
     }
   };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .cell {
-    font-size: 100%;
     position: absolute;
     text-align: center;
     top: 0;

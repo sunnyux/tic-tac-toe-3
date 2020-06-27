@@ -96,7 +96,7 @@
     left: 0;
     right: 0;
     background: #ffee9c;
-    font-size: 90%;
+    /*font-size: 90%;*/
   }
 
   td {
