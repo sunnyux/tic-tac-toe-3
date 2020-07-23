@@ -1,0 +1,107 @@
+<template>
+  <button class="cell" ref="cell" :style="{fontSize}" :class="boardState" @click.once="markPlaced">
+    {{mark}}
+  </button>
+</template>
+
+<script>
+  /*eslint-disable no-console*/
+  export default {
+    name: "cell",
+    props: {
+      cellID: {
+        type: Array,
+        required: true
+      }
+    },
+    data() {
+      return {
+        mark: "",
+        fontSize: 0,
+      }
+    },
+    computed: {
+      coordID() {   // inside to outside, xy-x'y'
+        // the next board will be defined from outside to inside
+        let id = this.cellID
+        let result = ""
+        for (let i = this.$store.state.originalDepth + 1; i > 0; i--) {
+          result = (id[0]).toString() + (id[1]).toString() + "-" + result
+          id = id[2]
+        }
+        return result
+      },
+      boardID() {
+        return this.idFormatter(this.coordID, true)
+      },
+      boardState() {
+        if (this.$store.state.boardPlaying === "init"
+          || this.$store.state.boardPlaying === this.boardID)
+          if (this.$store.state.player === "X")
+            return 'playerx';
+          else
+            return 'playero';
+        else
+          return 'unplayable'
+      }
+    },
+    methods: {
+      getCellWidth() {
+        this.fontSize = this.$refs.cell.clientWidth / 10 + 'vw'
+      },
+      markPlaced() {
+        let mark = this.$store.getters.getMark;
+        if (mark === "X") this.mark = "✕"
+        else this.mark = "O"
+        this.$store.commit("markPlaced",
+                           this.idFormatter(this.coordID, false))
+      },
+      idFormatter(id, forBoard) { // if id is for boardID, then forBoard = true,
+                                  // if it is for boardPlaying then false
+        if (forBoard)
+          return id.split('-').slice(0, this.$store.state.originalDepth).join("")
+        else
+          return id.split('-').slice(1).join("")
+      }
+    },
+    mounted() {
+      this.getCellWidth();
+    }
+  };
+</script>
+
+<style scoped>
+  .cell {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 0 0 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Gochi Hand', sans-serif;
+    box-shadow: none;
+    border: none;
+  }
+
+  .playerx {
+    background: lightsalmon;
+  }
+
+  .playero {
+    background-color: cornflowerblue;
+  }
+
+  .unplayable {
+    background-color: gold;
+    pointer-events: none;
+  }
+
+  .playerx:focus, .playero:focus, .unplayable:focus {
+    outline: 0;
+    box-shadow: none !important;
+  }
+
+</style>
