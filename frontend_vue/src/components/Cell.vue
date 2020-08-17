@@ -1,7 +1,9 @@
 <template>
-  <button class="cell" ref="cell" :style="{fontSize}" :class="boardState" @click.once="markPlaced">
-    {{mark}}
-  </button>
+    <div :resize-text="{ratio: 0.6}">
+      <button class="cell" ref="cell" :class="boardState" @click.once="markPlaced">
+        {{mark}}
+      </button>
+    </div>
 </template>
 
 <script>
@@ -17,7 +19,6 @@
     data() {
       return {
         mark: "",
-        fontSize: 0,
       }
     },
     computed: {
@@ -46,9 +47,6 @@
       }
     },
     methods: {
-      getCellWidth() {
-        this.fontSize = this.$refs.cell.clientWidth / 10 + 'vw'
-      },
       markPlaced() {
         let mark = this.$store.getters.getMark;
         if (mark === "X") this.mark = "✕"
@@ -64,9 +62,6 @@
           return id.split('-').slice(1).join("")
       }
     },
-    mounted() {
-      this.getCellWidth();
-    }
   };
 </script>
 
@@ -74,6 +69,7 @@
   .cell {
     position: absolute;
     text-align: center;
+    font-size: 10vw;
     top: 0;
     bottom: 0;
     left: 0;
@@ -82,6 +78,7 @@
     width: 100%;
     height: 100%;
     font-family: 'Gochi Hand', sans-serif;
+    /*TODO: I need either a perfectly round "O" or XO assets, the O is bothering me*/
     box-shadow: none;
     border: none;
   }
