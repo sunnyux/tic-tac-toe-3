@@ -1,24 +1,23 @@
 <template>
-  <table :class="size" :id="id">
-    <tr v-for="row in 3" :key="row">
-      <td v-for="column in 3" :key="row-column" :class="{borders: !moreNesting}">
+  <div>
+  <table :class="size">
+    <tr v-for="row in boardSize" :key="row">
+      <td v-for="column in boardSize" :key="row+column" :class="{borders: !moreNesting}">
         <div v-if="moreNesting" class="content">
-          <Octothorpe :block-i-d="{row: row, column: column, prevID: blockID}"
-                      :octDepth="octDepth-1" />
+          <Octothorpe :block-i-d="[row, column, blockID]"
+                      :octDepth="octDepth-1" :board-size="parseInt(boardSize)"/>
         </div>
         <div v-else>
-          <Cell :cell-i-d="{row: row, column: column, prevID: blockID}" />
+          <Cell :cell-i-d="[row, column, blockID]"/>
         </div>
       </td>
     </tr>
   </table>
-
+  <div v-if="completed" class="winner">{{winner}}</div>
+  </div>
 </template>
 
 <script>
-  //TODO: if depth === 1 then special css
-  //TODO: make the borders fucking conditional
-  //TODO: need to figure out how to take html positions to the script as argument
   import Cell from "./Cell.vue";
 
   export default {
@@ -28,63 +27,67 @@
         type: Number,
         required: true
       },
+      boardSize: {
+        type: Number,
+        required: true
+      },
       blockID: {
-        type: Object,
+        type: Array,
         required: true
       }
     },
     data() {
       return {
         lastTable: "lasttable",
+        winner: "×",
       }
     },
     components: {
       Cell,
     },
     computed: {
+      completed() {
+        return false
+        // return this.octDepth === 1;
+      },
       moreNesting() {
         return this.octDepth > 0;
       },
-      id(){
-        /*eslint-disable no-console*/
-        console.log(("row: " + this.blockID.row + "  col: " + this.blockID.column));
-        return this.blockID.row + "," + this.blockID.column
-      },
       size() {
-        if(!this.moreNesting)
-          if(this.$store.state.originalDepth <= 1)
-           return "size1";
+        if (!this.moreNesting)
+          if (this.$store.state.originalDepth <= 1)
+            return "size1";
           else
             return "size2"
         else
           return "size"
       },
-      color() {
-        /*eslint-disable no-console*/
-        // console.log((this.$store.state.boardPlaying));
-        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X") {
-          console.log("xplaying");
-          return 'xplaying';
-        }
-        else if(this.$store.state.boardPlaying === "O")
-          return 'oplaying';
-        else
-          return 'unplayable'
-      }
     },
-    methods: {
-      boardToPlay(board) {
-        /* eslint-disable no-console */
-        console.log(board)
-        this.$store.commit("boardPlaying", board)
-      }
-    }
-
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .winner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 1666%;
+    color: #eddbbf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #846c00;
+    opacity: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+  }
+  table {
+    border-style: hidden;
+  }
+
   .content {
     position: absolute;
     margin: 0 0 0 0;
@@ -92,36 +95,38 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: gold;
-    font-size: 90%;
-    /*border-color: white;*/
+    background: #ffee9c;
+    /*font-size: 90%;*/
   }
+
   td {
-    width: 33.3333%;
-    /*width: 5em;*/
     position: relative;
     padding: 0;
     margin: 0;
   }
+
   td:after {
     content: '';
     display: block;
     margin-top: 100%;
   }
+
   .borders {
     border: 2px solid white;
     margin: 0 0 0 0;
   }
+
   .size1 {
     width: 95%;
     height: 95%;
-    left: 3%;
-    top: 3%;
-    margin-top: 3%;
-    margin-left: 3%;
+    left: 2.5%;
+    top: 2.5%;
+    margin-top: 2.5%;
+    margin-left: 2.5%;
     table-layout: fixed;
     border-collapse: collapse;
   }
+
   .size2 {
     width: 98%;
     height: 98%;
@@ -130,15 +135,6 @@
     margin-top: 1%;
     margin-left: 1%;
     border-collapse: collapse;
-  }
-  .xplaying {
-    background-color: lightsalmon;
-  }
-  .oplaying {
-    background-color: cornflowerblue;
-  }
-  .unplayable {
-    background-color: gold;
   }
 
 </style>

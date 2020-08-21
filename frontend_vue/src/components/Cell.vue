@@ -1,74 +1,85 @@
 <template>
-  <button class="cell" :class="color" @click.once="changeState">
-    {{mark}}
-  </button>
+    <div :resize-text="{ratio: 0.6}">
+      <button class="cell" ref="cell" :class="boardState" @click.once="markPlaced">
+        {{mark}}
+      </button>
+    </div>
 </template>
 
 <script>
-  // import store from "./store.ts";
-
+  /*eslint-disable no-console*/
   export default {
     name: "cell",
     props: {
       cellID: {
-        type: Object,
+        type: Array,
         required: true
       }
     },
     data() {
       return {
-        mark: ""
+        mark: "",
       }
     },
     computed: {
-      marked() {
-        return this.mark !== ""
+      coordID() {   // inside to outside, xy-x'y'
+        // the next board will be defined from outside to inside
+        let id = this.cellID
+        let result = ""
+        for (let i = this.$store.state.originalDepth + 1; i > 0; i--) {
+          result = (id[0]).toString() + (id[1]).toString() + "-" + result
+          id = id[2]
+        }
+        return result
       },
-      color() {
-        /*eslint-disable no-console*/
-        console.log((this.$store.state.boardPlaying));
-        if(this.$store.state.boardPlaying === "init" || this.$store.state.boardPlaying === "X")
-          return 'playerx';
-        else if(this.$store.state.boardPlaying === "O")
-          return 'playero';
+      boardID() {
+        return this.idFormatter(this.coordID, true)
+      },
+      boardState() {
+        if (this.$store.state.boardPlaying === "init"
+          || this.$store.state.boardPlaying === this.boardID)
+          if (this.$store.state.player === "X")
+            return 'playerx';
+          else
+            return 'playero';
         else
           return 'unplayable'
       }
     },
-
     methods: {
-      changeState() {
-        this.mark = this.$store.getters.getMark;
-        this.$store.commit("changeTurn")
-        //TODO (rule + display): change board color after play
-        /* eslint-disable no-console */
-        console.log(this.cellID)
+      markPlaced() {
+        let mark = this.$store.getters.getMark;
+        if (mark === "X") this.mark = "✕"
+        else this.mark = "O"
+        this.$store.commit("markPlaced",
+                           this.idFormatter(this.coordID, false))
       },
-      nextBoard() {
-        /* eslint-disable no-console */
-        console.log(this.cellID)
+      idFormatter(id, forBoard) { // if id is for boardID, then forBoard = true,
+                                  // if it is for boardPlaying then false
+        if (forBoard)
+          return id.split('-').slice(0, this.$store.state.originalDepth).join("")
+        else
+          return id.split('-').slice(1).join("")
       }
-    }
+    },
   };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .cell {
-    font-size: 100%;
     position: absolute;
     text-align: center;
+    font-size: 10vw;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    /*top: 50%;*/
     padding: 0 0 0 0;
     width: 100%;
     height: 100%;
     font-family: 'Gochi Hand', sans-serif;
+    /*TODO: I need either a perfectly round "O" or XO assets, the O is bothering me*/
     box-shadow: none;
-    /*border: 2px solid white;*/
     border: none;
   }
 
@@ -82,6 +93,12 @@
 
   .unplayable {
     background-color: gold;
+    pointer-events: none;
+  }
+
+  .playerx:focus, .playero:focus, .unplayable:focus {
+    outline: 0;
+    box-shadow: none !important;
   }
 
 </style>
