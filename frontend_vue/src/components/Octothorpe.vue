@@ -1,19 +1,21 @@
 <template>
   <div>
-  <table :class="size">
-    <tr v-for="row in boardSize" :key="row">
-      <td v-for="column in boardSize" :key="row+column" :class="{borders: !moreNesting}">
-        <div v-if="moreNesting" class="content">
-          <Octothorpe :block-i-d="[row, column, blockID]"
-                      :octDepth="octDepth-1" :board-size="parseInt(boardSize)"/>
-        </div>
-        <div v-else>
-          <Cell :cell-i-d="[row, column, blockID]"/>
-        </div>
-      </td>
-    </tr>
-  </table>
-  <div v-if="completed" class="winner">{{winner}}</div>
+    <table :class="size">
+      <tr v-for="row in boardSize" :key="row">
+        <td v-for="column in boardSize" :key="row+column" :class="{borders: !moreNesting}">
+          <div v-if="moreNesting" class="content">
+            <Octothorpe :block-i-d="[row, column, blockID]"
+                        :octDepth="octDepth-1" :board-size="parseInt(boardSize)"/>
+          </div>
+          <div v-else>
+            <Cell :cell-i-d="[row, column, blockID]"/>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div :resize-text="{ratio: 1}">
+      <div v-if="completed" class="winner">{{winner}}</div>
+    </div>
   </div>
 </template>
 
@@ -47,8 +49,8 @@
     },
     computed: {
       completed() {
-        return false
-        // return this.octDepth === 1;
+        // return false
+        return this.octDepth === 0;
       },
       moreNesting() {
         return this.octDepth > 0;
@@ -72,18 +74,19 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 1666%;
+    width: 100%;
+    height: 100%;
+    font-size: 70vw;
     color: #eddbbf;
+    background-color: #846c00;
+    opacity: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #846c00;
-    opacity: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
   }
+
   table {
     border-style: hidden;
   }
