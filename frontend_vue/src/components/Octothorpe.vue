@@ -76,7 +76,7 @@
     left: 50%;
     width: 100%;
     height: 100%;
-    font-size: 70vw;
+    font-size: 30vw;
     color: #eddbbf;
     background-color: #846c00;
     opacity: 50%;
