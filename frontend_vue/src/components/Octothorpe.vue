@@ -49,8 +49,8 @@
     },
     computed: {
       completed() {
-        // return false
-        return this.octDepth === 0;
+        return false
+        // return this.octDepth === 0;
       },
       moreNesting() {
         return this.octDepth > 0;

@@ -1,15 +1,19 @@
 <template>
     <div :resize-text="{ratio: 0.6}">
       <button class="cell" ref="cell" :class="boardState" @click.once="markPlaced">
-        {{mark}}
+        <X icon-color="#f54c75" :style="{width: xWidth}" v-if="mark==='X'"></X>
+        <O icon-color="#397fe6" :style="{width: oWidth}" v-else-if="mark==='O'"></O>
       </button>
     </div>
 </template>
 
 <script>
   /*eslint-disable no-console*/
+  import X from "./icons/X";
+  import O from "./icons/O";
   export default {
     name: "cell",
+    components: {O, X},
     props: {
       cellID: {
         type: Array,
@@ -19,6 +23,8 @@
     data() {
       return {
         mark: "",
+        xWidth: 0,
+        oWidth: 0,
       }
     },
     computed: {
@@ -47,9 +53,13 @@
       }
     },
     methods: {
+      getMarkSize() {
+        this.xWidth = this.$refs.cell.clientWidth / 16 + 'vw';
+        this.oWidth = this.$refs.cell.clientWidth / 15 + 'vw';
+      },
       markPlaced() {
         let mark = this.$store.getters.getMark;
-        if (mark === "X") this.mark = "✕"
+        if (mark === "X") this.mark = "X"
         else this.mark = "O"
         this.$store.commit("markPlaced",
                            this.idFormatter(this.coordID, false))
@@ -62,6 +72,9 @@
           return id.split('-').slice(1).join("")
       }
     },
+    mounted() {
+      this.getMarkSize();
+    }
   };
 </script>
 
@@ -69,7 +82,6 @@
   .cell {
     position: absolute;
     text-align: center;
-    font-size: 10vw;
     top: 0;
     bottom: 0;
     left: 0;
@@ -77,22 +89,20 @@
     padding: 0 0 0 0;
     width: 100%;
     height: 100%;
-    font-family: 'Gochi Hand', sans-serif;
-    /*TODO: I need either a perfectly round "O" or XO assets, the O is bothering me*/
     box-shadow: none;
     border: none;
   }
 
   .playerx {
-    background: lightsalmon;
+    background: rgba(255, 187, 200, 0.53);
   }
 
   .playero {
-    background-color: cornflowerblue;
+    background-color: rgba(122, 191, 244, 0.42);
   }
 
   .unplayable {
-    background-color: gold;
+    background-color: #ffdc52;
     pointer-events: none;
   }
 
