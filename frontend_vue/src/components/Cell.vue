@@ -53,9 +53,10 @@
       }
     },
     methods: {
-      getMarkSize() {
-        this.xWidth = this.$refs.cell.clientWidth / 16 + 'vw';
-        this.oWidth = this.$refs.cell.clientWidth / 15 + 'vw';
+      getMarkSize() { // TODO: size is acceptable on my linux and mac rn for normal zoom (100%),
+          // X and O goes inverse with initial zoom value, super small on phone
+        this.xWidth = this.$refs.cell.clientWidth / 18 + 'vw';
+        this.oWidth = this.$refs.cell.clientWidth / 17 + 'vw';
       },
       markPlaced() {
         let mark = this.$store.getters.getMark;
