@@ -1,13 +1,19 @@
 <template>
-  <button class="cell" ref="cell" :style="{fontSize}" :class="boardState" @click.once="markPlaced">
-    {{mark}}
-  </button>
+    <div :resize-text="{ratio: 0.6}">
+      <button class="cell" ref="cell" :class="boardState" @click.once="markPlaced">
+        <X icon-color="#f54c75" :style="{width: xWidth}" v-if="mark==='X'"></X>
+        <O icon-color="#397fe6" :style="{width: oWidth}" v-else-if="mark==='O'"></O>
+      </button>
+    </div>
 </template>
 
 <script>
   /*eslint-disable no-console*/
+  import X from "./icons/X";
+  import O from "./icons/O";
   export default {
     name: "cell",
+    components: {O, X},
     props: {
       cellID: {
         type: Array,
@@ -17,7 +23,8 @@
     data() {
       return {
         mark: "",
-        fontSize: 0,
+        xWidth: 0,
+        oWidth: 0,
       }
     },
     computed: {
@@ -46,12 +53,14 @@
       }
     },
     methods: {
-      getCellWidth() {
-        this.fontSize = this.$refs.cell.clientWidth / 10 + 'vw'
+      getMarkSize() { // TODO: size is acceptable on my linux and mac rn for normal zoom (100%),
+          // X and O goes inverse with initial zoom value, super small on phone
+        this.xWidth = this.$refs.cell.clientWidth / 18 + 'vw';
+        this.oWidth = this.$refs.cell.clientWidth / 17 + 'vw';
       },
       markPlaced() {
         let mark = this.$store.getters.getMark;
-        if (mark === "X") this.mark = "✕"
+        if (mark === "X") this.mark = "X"
         else this.mark = "O"
         this.$store.commit("markPlaced",
                            this.idFormatter(this.coordID, false))
@@ -65,7 +74,7 @@
       }
     },
     mounted() {
-      this.getCellWidth();
+      this.getMarkSize();
     }
   };
 </script>
@@ -81,21 +90,20 @@
     padding: 0 0 0 0;
     width: 100%;
     height: 100%;
-    font-family: 'Gochi Hand', sans-serif;
     box-shadow: none;
     border: none;
   }
 
   .playerx {
-    background: lightsalmon;
+    background: rgba(255, 187, 200, 0.53);
   }
 
   .playero {
-    background-color: cornflowerblue;
+    background-color: rgba(122, 191, 244, 0.42);
   }
 
   .unplayable {
-    background-color: gold;
+    background-color: #ffdc52;
     pointer-events: none;
   }
 

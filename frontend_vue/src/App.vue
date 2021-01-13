@@ -14,8 +14,8 @@
     },
     data() {
       return {
-        depth: 2,
-        size: 2, // the number of rows and columns of the board
+        depth: 1,
+        size: 3, // the number of rows and columns of the board
       }
     },
     created() {
