@@ -1,0 +1,6 @@
+[submodule "tic-tac-toe-3-react-frontend"]
+	path = tic-tac-toe-3-react-frontend
+	url = git@github.com:matt-froggatt/tic-tac-toe-3-react-frontend.git
+[submodule "react-frontend"]
+	path = react-frontend
+	url = ./react-frontend
