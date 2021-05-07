@@ -1,6 +1,6 @@
 [submodule "react-frontend"]
 	path = react-frontend
-	url = ./react-frontend
+	url = git@github.com:matt-froggatt/tic-tac-toe-3-react-frontend.git
 [submodule "vue-frontend"]
 	path = vue-frontend
-	url = ./vue-frontend/
+	url = git@github.com:sunnyux/tic-tac-toe-3-vue-frontend.git
