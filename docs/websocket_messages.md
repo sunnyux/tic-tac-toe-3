@@ -33,7 +33,8 @@ If the ID is found:
 ```JSON
 { 
     "command": "successIdFound", 
-    "message": "ID found, game beginning" }
+    "message": "ID found, game beginning"
+}
 ```
 If the ID is not found:
 ```JSON
