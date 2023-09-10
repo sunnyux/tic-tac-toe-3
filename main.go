@@ -6,7 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/websocket"
 )
@@ -14,20 +13,39 @@ import (
 var upgrader = websocket.Upgrader{}
 
 type Message struct {
-	Command string `json:"command"`
-	ID      string `json:"id"`
+	Command     string `json:"command"`
+	ID          int    `json:"id,omitempty"`
+	P2ID        int    `json:"p2id,omitempty"`
+	Coordinates []struct {
+		X int `json:"x"`
+		Y int `json:"y"`
+	} `json:"coordinates,omitempty"`
+	Player string `json:"player,omitempty"`
 }
 
-var connectedIds = make(map[int]bool)
+var connectedIds = make(map[int]*websocket.Conn)
 
-func generateId() int {
+var connectionList = make(map[int]int)
+
+func generateId(connection *websocket.Conn) int {
 	for {
-		id := rand.Int()
-		if connectedIds[id] == false {
-			connectedIds[id] = true
+		min := 100
+		max := 10000
+		id := rand.Intn(max-min) + min
+		if connectedIds[id] == nil {
+			connectedIds[id] = connection
 			return id
 		}
 	}
+}
+
+func joinGame(p1id int, p2id int) bool {
+	if connectedIds[p1id] != nil && connectedIds[p2id] != nil {
+		connectionList[p1id] = p2id
+		connectionList[p2id] = p1id
+		return true
+	}
+	return false
 }
 
 func reader(connection *websocket.Conn) {
@@ -37,13 +55,11 @@ func reader(connection *websocket.Conn) {
 			log.Println("Error reading websocket message", err)
 			return
 		}
-		// print out that message for clarity
 
-		fmt.Println(string(messageBytes))
+		log.Println("Request:", string(messageBytes))
 
 		var v Message
-		err = json.Unmarshal(messageBytes, &v)
-		if err != nil {
+		if err = json.Unmarshal(messageBytes, &v); err != nil {
 			log.Println("Error parsing JSON", err)
 			return
 		}
@@ -52,7 +68,17 @@ func reader(connection *websocket.Conn) {
 
 		switch v.Command {
 		case "requestId": // send request id
-			response = Message{Command: "respondId", ID: strconv.Itoa(generateId())}
+			response = Message{Command: "respondId", ID: generateId(connection)}
+
+		case "joinGame":
+			if p1id, p2id := v.ID, v.P2ID; joinGame(p1id, p2id) {
+				response = Message{Command: "successIdFound"}
+			} else {
+				response = Message{Command: "errorIdNotFound"}
+			}
+
+		case "makeMove":
+			response = Message{Command: "updateBoardFromMove", Coordinates: v.Coordinates, Player: v.Player}
 
 		default:
 			log.Println("Unknown command:", v.Command)
@@ -61,11 +87,21 @@ func reader(connection *websocket.Conn) {
 		responseBytes, err := json.Marshal(response)
 		if err != nil {
 			log.Println("Error marshaling response:", err)
-			continue
+			return
 		}
-		err = connection.WriteMessage(websocket.TextMessage, responseBytes)
-		if err != nil {
+
+		log.Println("Response:", string(responseBytes))
+
+		if err = connection.WriteMessage(websocket.TextMessage, responseBytes); err != nil {
 			log.Println("Error sending response:", err)
+		}
+		if p2id := connectionList[v.ID]; p2id != 0 {
+			if err = connectedIds[p2id].WriteMessage(websocket.TextMessage, responseBytes); err != nil {
+				log.Println("Error sending response:", err)
+			}
+			log.Println("Sent response to both", v.ID, p2id)
+		} else {
+			log.Println("Sent response to only", v.ID)
 		}
 	}
 }
@@ -76,6 +112,7 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
+		return
 	}
 
 	log.Println("client connected")
